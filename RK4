@@ -1,0 +1,48 @@
+/*========================================================================
+
+	Project 	  : Runge Kutta Solver.
+	Language 	  : C
+	Function 	  : Solve an ODE using the 4th order Runge Kutta method.
+				      : The ODE should be inserted into the function 'f'.  
+	Writted by 	: Steven Taggart, 19/02/2018.		   
+
+=========================================================================*/	
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+double f (double t, double y);
+
+int main ()
+{
+	double x0, y0, k1, k2, k3, k4, w, y, x, h, xn;
+	//boundary conditions
+	x0=0; 		//initial x value
+	y0=0.5; 	//intiial y value
+	xn=2; 		//end value of x
+	h=0.5; 		//step size
+	x=x0;
+	y=y0;
+	
+	printf("%f\t%f\n", x, y);
+	while (x<xn)
+	{
+		k1 = h*f(x,y);
+		k2 = h*f(x+h/2, y+k1/2);	
+		k3 = h*f(x+h/2, y+k2/2);
+		k4 = h*f(x+h, y+k3);
+		y = y+(k1+(2*k2)+(2*k3)+k4)/6;
+		x = x+h;
+		printf("%f\t%f\n", x, y);
+	}
+
+}
+
+double f(double x, double y)
+{
+	double v;
+	v = y-(pow(x, 2)) + 1;
+	return v;
+}
+	
